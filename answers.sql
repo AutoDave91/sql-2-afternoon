@@ -140,3 +140,26 @@ WHERE genre_id = (
 
 
 -- GROUP BY --
+-- SELECT [column1], [column2]
+-- FROM [table] [abbr]
+-- GROUP BY [column];
+
+1) SELECT COUNT(*) FROM track AS t
+INNER JOIN genre AS g
+ON t.genre_id = g.genre_id
+GROUP BY g.name
+
+2) SELECT COUNT(*) FROM track AS t
+INNER JOIN genre AS g
+ON t.genre_id = g.genre_id
+WHERE g.name = 'Pop' OR g.name = 'Rock'
+GROUP BY g.name
+
+3) SELECT COUNT(*) FROM artist AS ar
+INNER JOIN album AS al
+ON ar.artist_id = al.artist_id
+GROUP BY ar.name
+
+
+
+-- 
