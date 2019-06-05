@@ -191,3 +191,76 @@ WHERE value = 150;
 
 
 -- eCommerce Simulation --
+-- Let's simulate an e-commerce site. We're going to need users, products, and orders.
+
+-- users need a name and an email.
+-- products need a name and a price
+-- orders need a ref to product.
+-- All 3 need primary keys.
+-- Instructions
+
+-- Create 3 tables following the criteria in the summary.
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(200)
+);
+CREATE TABLE product (
+  product_id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  price INT
+);
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  product_id INT,
+  FOREIGN KEY(product_id) REFERENCES product(product_id)
+)
+
+-- Add some data to fill up each table.
+-- At least 3 users, 3 products, 3 orders.
+INSERT INTO users (name, email)
+VALUES ('Kevin', 'kevin@donglemonger.com'),
+('Rachel', 'dongle4you@bendover.love'),
+('David', 'totallyInnocent@didntdoit.net');
+INSERT INTO product (name, price)
+VALUES ('Large Dungle', 9.89),
+('Medium Dongle', 8.98),
+('Small Dongle', 5.55);
+INSERT INTO orders (product_id)
+VALUES (1),(1),(3)
+
+-- Run queries against your data.
+-- Get all products for the first order.
+SELECT * FROM orders
+WHERE order_id = 1
+
+-- Get all orders.
+SELECT * FROM orders
+
+-- Get the total cost of an order ( sum the price of all products on an order ).
+SELECT SUM(o.quantity * p.price) FROM orders AS o
+INNER JOIN product AS p
+ON o.product_id = p.product_id
+WHERE order_id = 1
+
+-- Add a foreign key reference from orders to users.
+ALTER TABLE users
+ADD COLUMN order_id INTEGER REFERENCES orders(order_id);
+SELECT * FROM users
+
+-- Update the orders table to link a user to each order.
+UPDATE users 
+SET order_id = user_id;
+SELECT * FROM users
+
+-- Run queries against your data.
+-- Get all orders for a user.
+SELECT * FROM users
+WHERE order_id = 1
+
+-- Get how many orders each user has.
+SELECT COUNT(*) FROM users
+WHERE order_id = 1
+
+-- Black Diamond
+-- Get the total amount on all orders for each user.
