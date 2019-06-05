@@ -53,3 +53,81 @@ At least 5 joins.
 
 
 
+-- Practice nested queries
+-- SELECT [column names] 
+-- FROM [table] 
+-- WHERE column_id IN ( SELECT column_id FROM [table2] WHERE [Condition] );
+
+-- SELECT name, Email FROM Athlete WHERE AthleteId IN ( SELECT PersonId FROM PieEaters WHERE Flavor='Apple' );
+
+1) SELECT * FROM invoice
+WHERE invoice_id IN (
+  SELECT invoice_id FROM invoice_line
+	WHERE unit_price > 0.99
+) 
+
+2) SELECT playlist_track_id FROM playlist_track
+WHERE playlist_id IN (
+  SELECT playlist_id FROM playlist
+	WHERE name ILIKE 'MUSIC'
+)
+-- OR --
+SELECT name FROM track
+WHERE track_id IN (
+  SELECT playlist_track_id FROM playlist_track
+  WHERE playlist_id IN (
+    SELECT playlist_id FROM playlist
+    WHERE name ILIKE 'MUSIC'
+	)
+)
+
+3) SELECT name FROM track
+WHERE track_id IN (
+  SELECT track_id FROM playlist_track
+	WHERE playlist_id = 5
+)
+
+4) SELECT * FROM track
+WHERE genre_id IN (
+  SELECT genre_id FROM genre
+	WHERE name ILIKE 'COMEDY'
+)
+
+5) SELECT * FROM track
+WHERE album_id IN (
+  SELECT album_id FROM album
+	WHERE name ILIKE 'FIREBALL'
+)
+
+6) SELECT * FROM track
+WHERE album_id IN (
+  SELECT album_id FROM album
+	WHERE artist_id IN (
+    SELECT artist_id FROM artist
+    WHERE name ILIKE 'QUEEN'
+  )
+)
+
+
+
+-- PRACTICE UPDATING ROWS
+-- UPDATE [table] 
+-- SET [column1] = [value1], [column2] = [value2] 
+-- WHERE [Condition];
+
+-- UPDATE athletes SET sport = 'Picklball' WHERE sport = 'pockleball';
+
+1) Find all customers with fax numbers and set those numbers to null.
+
+2) Find all customers with no company (null) and set their company to "Self".
+
+3) Find the customer Julia Barnett and change her last name to Thompson.
+
+4) Find the customer with this email luisrojas@yahoo.cl and change his support rep to 4.
+
+5) Find all tracks that are the genre Metal and have no composer. Set the composer to "The darkness around us".
+
+6) Refresh your page to remove all database changes.
+
+
+
