@@ -175,3 +175,19 @@ GROUP BY ar.name
 
 
 -- DELETE ROWS --
+-- DELETE FROM [table] WHERE [condition]
+
+1) Copy, paste, and run the SQL code from the summary.
+
+2) DELETE FROM practice_delete
+WHERE type = 'bronze';
+
+3) DELETE FROM practice_delete
+WHERE type = 'silver';
+
+4) DELETE FROM practice_delete
+WHERE value = 150;
+
+
+
+-- eCommerce Simulation --
